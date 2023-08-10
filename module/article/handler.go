@@ -119,6 +119,7 @@ func (h *Http) DetailArticle(c echo.Context) error {
 	if idParam == "" {
 		err := errors.New(primitive.ParamIdIsZeroOrNullString)
 		logger.Error(ctx, utils.ErrorLogFormat, err.Error(), logCtx, "c.Param")
+		return httplib.SetErrorResponse(c, http.StatusBadRequest, primitive.ParamIdIsZeroOrNullString)
 	}
 
 	idInt64, err := strconv.Atoi(idParam)
