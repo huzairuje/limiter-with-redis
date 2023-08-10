@@ -153,7 +153,7 @@ func (s Service) GetListArticle(ctx context.Context, param primitive.ParameterAr
 			if errSetDataRedis != nil {
 				logger.Error(ctx, utils.ErrorLogFormat, err.Error(), logCtx, "s.redis.Set")
 			}
-			fmt.Printf("success SET on redis by key: %s\n", cacheDataBytes)
+			fmt.Printf("success SET on redis by key: %s\n", cacheKey)
 		}()
 	}
 
