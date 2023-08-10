@@ -45,6 +45,8 @@ type Config struct {
 	LogFormat string         `mapstructure:"logFormat"`
 	Postgres  PostgresConfig `mapstructure:"postgres"`
 	Redis     RedisConfig    `mapstructure:"redis"`
+	Rate      int64          `mapstructure:"rate"`
+	Interval  string         `mapstructure:"interval"`
 }
 
 // PostgresConfig ...

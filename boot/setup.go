@@ -4,16 +4,19 @@ import (
 	"os"
 
 	"github.com/test_cache_CQRS/config"
+	"github.com/test_cache_CQRS/infrastructure/limiter"
 	logger "github.com/test_cache_CQRS/infrastructure/log"
 	"github.com/test_cache_CQRS/infrastructure/postgres"
 	"github.com/test_cache_CQRS/infrastructure/redis"
 	"github.com/test_cache_CQRS/module/article"
 	"github.com/test_cache_CQRS/module/health"
+	"github.com/test_cache_CQRS/utils"
 
 	log "github.com/sirupsen/logrus"
 )
 
 type HandlerSetup struct {
+	Limiter     *limiter.RateLimiter
 	HealthHttp  health.InterfaceHttp
 	ArticleHttp article.InterfaceHttp
 }
@@ -37,6 +40,10 @@ func MakeHandler() HandlerSetup {
 		os.Exit(1)
 	}
 
+	//add limiter
+	interval := utils.StringUnitToDuration(config.Conf.Interval)
+	middlewareWithLimiter := limiter.NewRateLimiter(int(config.Conf.Rate), interval)
+
 	//health module
 	healthRepository := health.NewRepository(db.DbConn)
 	healthService := health.NewService(healthRepository)
@@ -48,6 +55,7 @@ func MakeHandler() HandlerSetup {
 	articleModule := article.NewHttp(articleService)
 
 	return HandlerSetup{
+		Limiter:     middlewareWithLimiter,
 		HealthHttp:  healthModule,
 		ArticleHttp: articleModule,
 	}

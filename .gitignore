@@ -16,3 +16,5 @@ go.work
 
 # jetbrain project setting
 .idea/
+
+pgdata/

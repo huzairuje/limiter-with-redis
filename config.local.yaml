@@ -20,3 +20,5 @@ redis:
   port: 6379
   keySubmitSosialisasiTtl: 5m
   valueSubmitSosialisasiTtl: 30m
+rate: 1
+interval: second

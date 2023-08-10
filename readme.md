@@ -1,5 +1,9 @@
 # README
 
+## Description
+this repository basically implementing limiter rate (Token Bucket Algorithm) and cache (CQRS pattern) 
+on golang using echo framework (https://echo.labstack.com/), postgresql and redis.
+
 
 ## Install PreRequisite
 1. run `make local` to install or up or run the postgres container and redis container.
