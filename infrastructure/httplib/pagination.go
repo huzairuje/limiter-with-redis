@@ -63,6 +63,8 @@ func (q *Query) SetSortOrder(sortOrderByQuery string) {
 		} else {
 			sortOrderByQuery = "asc"
 		}
+	} else {
+		sortOrderByQuery = "desc"
 	}
 	q.SortOrder = sortOrderByQuery
 }
