@@ -22,17 +22,22 @@ type HandlerSetup struct {
 }
 
 func MakeHandler() HandlerSetup {
+	//initiate config
 	config.Initialize()
+
+	//initiate logger
 	logger.Init(config.Conf.LogFormat, config.Conf.LogLevel)
 
 	var err error
 
+	//initiate a redis client
 	redisClient, err := redis.NewRedisClient(&config.Conf)
 	if err != nil {
 		log.Fatalf("failed initiate redis: %v", err)
 		os.Exit(1)
 	}
 
+	//initiate a redis library interface
 	redisLibInterface, err := redis.NewRedisLibInterface(redisClient)
 	if err != nil {
 		log.Fatalf("failed initiate redis library: %v", err)
