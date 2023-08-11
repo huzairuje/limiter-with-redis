@@ -1,6 +1,7 @@
 package health
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/test_cache_CQRS/infrastructure/httplib"
@@ -32,9 +33,10 @@ func (h *Http) Ping(c echo.Context) error {
 }
 
 func (h *Http) HealthCheckApi(c echo.Context) error {
-	err := h.serviceHealth.CheckUpTime(c.Request().Context())
+	ctx := context.Background()
+	resp, err := h.serviceHealth.CheckUpTime(ctx)
 	if err != nil {
 		return httplib.SetErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
-	return httplib.SetSuccessResponse(c, http.StatusOK, http.StatusText(http.StatusOK), "healthy")
+	return httplib.SetSuccessResponse(c, http.StatusOK, http.StatusText(http.StatusOK), resp)
 }

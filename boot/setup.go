@@ -33,6 +33,12 @@ func MakeHandler() HandlerSetup {
 		os.Exit(1)
 	}
 
+	redisLibInterface, err := redis.NewRedisLibInterface(redisClient)
+	if err != nil {
+		log.Fatalf("failed initiate redis library: %v", err)
+		os.Exit(1)
+	}
+
 	//setup infrastructure postgres
 	db, err := postgres.NewDatabaseClient(&config.Conf)
 	if err != nil {
@@ -46,12 +52,12 @@ func MakeHandler() HandlerSetup {
 
 	//health module
 	healthRepository := health.NewRepository(db.DbConn)
-	healthService := health.NewService(healthRepository)
+	healthService := health.NewService(healthRepository, redisClient)
 	healthModule := health.NewHttp(healthService)
 
 	//article module
 	articleRepository := article.NewRepository(db.DbConn)
-	articleService := article.NewService(articleRepository, redisClient)
+	articleService := article.NewService(articleRepository, redisLibInterface)
 	articleModule := article.NewHttp(articleService)
 
 	return HandlerSetup{

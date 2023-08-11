@@ -10,3 +10,8 @@ type ArticleResp struct {
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }
+
+type HealthResp struct {
+	Db    string `json:"db"`
+	Redis string `json:"redis"`
+}

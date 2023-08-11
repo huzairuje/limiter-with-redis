@@ -10,14 +10,8 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// NewRedisClient initialize a redis client
-func NewRedisClient(conf *config.Config) (redisLib LibInterface, err error) {
-	redisClient := redis.NewClient(&redis.Options{
-		Addr:     fmt.Sprintf("%s:%d", config.Conf.Redis.Host, config.Conf.Redis.Port),
-		Password: conf.Redis.Password,
-		DB:       conf.Redis.DB,
-	})
-
+// NewRedisLibInterface initialize a redis client
+func NewRedisLibInterface(redisClient *redis.Client) (redisLib LibInterface, err error) {
 	_, err = redisClient.Ping().Result()
 	if err != nil {
 		log.Fatalf("Open connection to redis, error: %v", err)
@@ -26,6 +20,17 @@ func NewRedisClient(conf *config.Config) (redisLib LibInterface, err error) {
 	redisLib = newLib(redisClient)
 	log.Printf("Connected to redis on %s (DB: %d)", config.Conf.Redis.Host, config.Conf.Redis.DB)
 	return redisLib, nil
+}
+
+// NewRedisClient initialize a redis client
+func NewRedisClient(conf *config.Config) (redisClient *redis.Client, err error) {
+	redisClient = redis.NewClient(&redis.Options{
+		Addr:     fmt.Sprintf("%s:%d", config.Conf.Redis.Host, config.Conf.Redis.Port),
+		Password: conf.Redis.Password,
+		DB:       conf.Redis.DB,
+	})
+
+	return redisClient, nil
 }
 
 type client struct {
