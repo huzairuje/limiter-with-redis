@@ -38,6 +38,7 @@ func (r *Repository) CreateArticle(ctx context.Context, payload primitive.Articl
 func (r *Repository) CountArticle(ctx context.Context, param primitive.ParameterFindArticle) (int64, error) {
 	var count int64
 	query := r.db.WithContext(ctx).Table("articles")
+	query.Where(`"deleted_at" is null`)
 	if param.Author != "" {
 		query.Where(`"author" ILIKE ?`, "%"+param.Author+"%")
 	}
