@@ -2,12 +2,12 @@ package health
 
 import (
 	"context"
-	logger "github.com/test_cache_CQRS/infrastructure/log"
-	"github.com/test_cache_CQRS/module/primitive"
-	"github.com/test_cache_CQRS/utils"
 	"net/http"
 
 	"github.com/test_cache_CQRS/infrastructure/httplib"
+	logger "github.com/test_cache_CQRS/infrastructure/log"
+	"github.com/test_cache_CQRS/module/primitive"
+	"github.com/test_cache_CQRS/utils"
 
 	"github.com/labstack/echo/v4"
 )
