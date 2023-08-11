@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/test_cache_CQRS/infrastructure/httplib"
 	logger "github.com/test_cache_CQRS/infrastructure/log"
@@ -57,7 +58,7 @@ func (s Service) RecordArticle(ctx context.Context, payload primitive.ArticleReq
 			logger.Error(ctx, utils.ErrorLogFormat, errMarshall.Error(), logCtx, "json.Marshal")
 		}
 		redisFinaleKey := fmt.Sprintf(redisFinaleKeyArticle, data.ID)
-		errSetToRedis := s.redis.Set(redisFinaleKey, dataBytes, 0)
+		errSetToRedis := s.redis.Set(redisFinaleKey, dataBytes, time.Minute)
 		if errSetToRedis != nil {
 			logger.Error(ctx, utils.ErrorLogFormat, errSetToRedis.Error(), logCtx, "s.redis.Set")
 		}
@@ -152,7 +153,7 @@ func (s Service) GetListArticle(ctx context.Context, param primitive.ParameterAr
 				logger.Error(ctx, utils.ErrorLogFormat, errMarshal.Error(), logCtx, "json.Marshal")
 			}
 			// Cache data for a reasonable amount of time (e.g., 1 hour)
-			errSetDataRedis := s.redis.Set(cacheKey, cacheDataBytes, 0)
+			errSetDataRedis := s.redis.Set(cacheKey, cacheDataBytes, time.Minute)
 			if errSetDataRedis != nil {
 				logger.Error(ctx, utils.ErrorLogFormat, err.Error(), logCtx, "s.redis.Set")
 			}
