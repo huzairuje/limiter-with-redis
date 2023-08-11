@@ -108,6 +108,7 @@ func (s Service) GetListArticle(ctx context.Context, param primitive.ParameterAr
 		if err := json.Unmarshal([]byte(cacheData), &resp); err != nil {
 			logger.Error(ctx, utils.ErrorLogFormat, err.Error(), logCtx, "json.Unmarshal")
 		}
+		count = int64(len(resp))
 		return resp, count, nil
 	}
 
