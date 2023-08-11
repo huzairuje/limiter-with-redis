@@ -6,8 +6,9 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/test_cache_CQRS/utils"
+
 	"github.com/labstack/echo/v4"
-	"gorm.io/gorm/utils"
 )
 
 const (

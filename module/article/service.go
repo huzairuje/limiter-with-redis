@@ -92,12 +92,14 @@ func (s Service) GetListArticle(ctx context.Context, param primitive.ParameterAr
 	}
 
 	// Generate a unique cache key based on the pagination parameters
-	cacheKey := fmt.Sprintf("%s:%s:%s:%d:%d",
+	cacheKey := fmt.Sprintf("%s:%s:%s:%d:%d:%s:%s",
 		redisListFinaleKeyArticle,
 		paramQuery.Query,
 		paramQuery.Author,
 		paramQuery.PageSize,
-		paramQuery.Offset)
+		paramQuery.Offset,
+		paramQuery.SortBy,
+		paramQuery.SortOrder)
 
 	// Check if the data exists in the Redis cache
 	cacheData := s.redis.Get(cacheKey)

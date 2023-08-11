@@ -75,17 +75,17 @@ func (r *Repository) SetParamQueryToOrderByQuery(orderBy string) string {
 	var result string
 	switch orderBy {
 	case "id":
-		result = fmt.Sprintf(`"id"`)
+		result = fmt.Sprintf(`id`)
 	case "author":
-		result = fmt.Sprintf(`"author"`)
+		result = fmt.Sprintf(`author`)
 	case "title":
-		result = fmt.Sprintf(`"title"`)
+		result = fmt.Sprintf(`title`)
 	case "body":
-		result = fmt.Sprintf(`"body"`)
+		result = fmt.Sprintf(`body`)
 	case "created":
-		result = fmt.Sprintf(`"created_at"`)
+		result = fmt.Sprintf(`created_at`)
 	default:
-		result = fmt.Sprintf(`"created_at"`)
+		result = fmt.Sprintf(`created_at`)
 	}
 	return result
 }

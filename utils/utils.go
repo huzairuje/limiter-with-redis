@@ -14,6 +14,15 @@ func IsValidSanitizeSQL(queryParam string) bool {
 	return regexQueryParam.MatchString(queryParam)
 }
 
+func Contains(elems []string, elem string) bool {
+	for _, e := range elems {
+		if elem == e {
+			return true
+		}
+	}
+	return false
+}
+
 func StringUnitToDuration(input string) time.Duration {
 	durationMapping := map[string]time.Duration{
 		"second": time.Second,
