@@ -10,7 +10,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// NewRedisClient initialize redis client
+// NewRedisClient initialize a redis client
 func NewRedisClient(conf *config.Config) (redisLib LibInterface, err error) {
 	redisClient := redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%d", config.Conf.Redis.Host, config.Conf.Redis.Port),

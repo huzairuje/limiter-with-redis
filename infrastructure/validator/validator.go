@@ -36,7 +36,7 @@ func ValidateStructResponseSliceString(input interface{}) (errResponse []string)
 			var message string
 			var element ErrorResponse
 			element.FailedField = trimStringFromDot(err.StructNamespace())
-			message = fmt.Sprintf("form %s harus diisi", element.FailedField)
+			message = fmt.Sprintf("form %s must filled", element.FailedField)
 			errResponse = append(errResponse, message)
 		}
 	}
