@@ -54,6 +54,7 @@ func (r *Repository) CountArticle(ctx context.Context, param primitive.Parameter
 func (r *Repository) FindListArticle(ctx context.Context, param primitive.ParameterFindArticle) ([]primitive.Article, error) {
 	var listData []primitive.Article
 	query := r.db.WithContext(ctx).Table("articles")
+	query.Where(`"deleted_at" is null`)
 	if param.Author != "" {
 		query.Where(`"author" ILIKE ?`, "%"+param.Author+"%")
 	}
