@@ -8,4 +8,5 @@ const (
 	QueryIsSuspicious                = "the query parameter given value is suspicious"
 	ErrorBindBodyRequest             = "error bind body from request"
 	SomethingWrongWithTheBodyRequest = "oops, something wrong with body request, please recheck!"
+	SomethingWentWrong               = "oops, something went wrong!"
 )

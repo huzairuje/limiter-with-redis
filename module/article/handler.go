@@ -73,7 +73,7 @@ func (h *Http) GetListArticle(c echo.Context) error {
 	data, count, err := h.serviceArticle.GetListArticle(ctx, param, paginationQuery)
 	if err != nil {
 		logger.Error(ctx, utils.ErrorLogFormat, err.Error(), logCtx, "h.serviceArticle.GetListArticle")
-		return httplib.SetErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return httplib.SetErrorResponse(c, http.StatusInternalServerError, primitive.SomethingWentWrong)
 	}
 
 	return httplib.SetPaginationResponse(c,
