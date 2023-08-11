@@ -1,8 +1,6 @@
 package config
 
 import (
-	"time"
-
 	"github.com/go-redis/redis"
 )
 
@@ -63,10 +61,8 @@ type PostgresConfig struct {
 }
 
 type RedisConfig struct {
-	Host                      string        `mapstructure:"host"`
-	Password                  string        `mapstructure:"password"`
-	DB                        int           `mapstructure:"db"`
-	Port                      int           `mapstructure:"port"`
-	KeySubmitSosialisasiTtl   time.Duration `mapstructure:"keySubmitSosialisasiTtl"`
-	ValueSubmitSosialisasiTtl time.Duration `mapstructure:"valueSubmitSosialisasiTtl"`
+	Host     string `mapstructure:"host"`
+	Password string `mapstructure:"password"`
+	DB       int    `mapstructure:"db"`
+	Port     int    `mapstructure:"port"`
 }

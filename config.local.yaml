@@ -18,7 +18,5 @@ redis:
   password:
   db: 0
   port: 6379
-  keySubmitSosialisasiTtl: 5m
-  valueSubmitSosialisasiTtl: 30m
 rate: 60
 interval: second
