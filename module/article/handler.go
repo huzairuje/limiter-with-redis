@@ -104,7 +104,7 @@ func (h *Http) CreateArticle(c echo.Context) error {
 	data, err := h.serviceArticle.RecordArticle(ctx, requestBody)
 	if err != nil {
 		logger.Error(ctx, utils.ErrorLogFormat, err.Error(), logCtx, "h.serviceArticle.GetListArticle")
-		return httplib.SetErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return httplib.SetErrorResponse(c, http.StatusInternalServerError, primitive.SomethingWentWrong)
 	}
 
 	return httplib.SetSuccessResponse(c, http.StatusOK, primitive.SuccessCreateArticle, data)
@@ -136,7 +136,7 @@ func (h *Http) DetailArticle(c echo.Context) error {
 			return httplib.SetErrorResponse(c, http.StatusNotFound, primitive.RecordArticleNotFound)
 		}
 		logger.Error(ctx, utils.ErrorLogFormat, err.Error(), logCtx, "h.serviceArticle.GetDetailArticle")
-		return httplib.SetErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return httplib.SetErrorResponse(c, http.StatusInternalServerError, primitive.SomethingWentWrong)
 	}
 
 	return httplib.SetSuccessResponse(c, http.StatusOK, primitive.SuccessCreateArticle, data)
