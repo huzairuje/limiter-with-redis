@@ -1,10 +1,11 @@
 package router
 
 import (
+	"net/http"
+
 	"github.com/test_cache_CQRS/boot"
 	"github.com/test_cache_CQRS/infrastructure/httplib"
 	customMiddleware "github.com/test_cache_CQRS/infrastructure/middleware"
-	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -36,7 +37,7 @@ func (hr *HandlerRouter) RouterWithMiddleware() *echo.Echo {
 	//grouping on root endpoint
 	api := c.Group("/", customMiddleware.RateLimiterMiddleware(hr.Setup.Limiter))
 
-	//grouping on "/api/v1"
+	//grouping on "api/v1"
 	v1 := api.Group("api/v1")
 
 	//module health
