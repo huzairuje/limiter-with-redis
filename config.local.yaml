@@ -2,21 +2,22 @@ env: DEV
 port: 1234
 logLevel: DEBUG
 logFormat: text
-logMode: true
+logMode: false
 postgres:
   connectTimeout: 10
   maxIdleConnections: 10
   maxOpenConnections: 20
   dbName: test_cache_cqrs
-  host: localhost
+  host: 192.168.1.11
   password: postgres
   port: 5432
   schema: public
   user: postgres
 redis:
-  host: localhost
+  host: 192.168.1.11
   password:
   db: 0
   port: 6379
+  enableRedis: false
 rate: 60
 interval: second

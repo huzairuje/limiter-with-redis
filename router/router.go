@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/test_cache_CQRS/boot"
+	"github.com/test_cache_CQRS/config"
 	"github.com/test_cache_CQRS/infrastructure/httplib"
 	customMiddleware "github.com/test_cache_CQRS/infrastructure/middleware"
 
@@ -27,7 +28,10 @@ type InterfaceRouter interface {
 
 func (hr *HandlerRouter) RouterWithMiddleware() *echo.Echo {
 	c := echo.New()
-	c.Use(middleware.Logger())
+
+	if config.Conf.LogMode {
+		c.Use(middleware.Logger())
+	}
 
 	echo.NotFoundHandler = func(c echo.Context) error {
 		// render 404 custom response

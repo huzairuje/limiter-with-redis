@@ -12,6 +12,7 @@ import (
 	"github.com/test_cache_CQRS/module/health"
 	"github.com/test_cache_CQRS/utils"
 
+	redisThirdPartyClient "github.com/go-redis/redis"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -26,22 +27,27 @@ func MakeHandler() HandlerSetup {
 	config.Initialize()
 
 	//initiate logger
-	logger.Init(config.Conf.LogFormat, config.Conf.LogLevel)
+	if config.Conf.LogMode {
+		logger.Init(config.Conf.LogFormat, config.Conf.LogLevel)
+	}
 
 	var err error
 
-	//initiate a redis client
-	redisClient, err := redis.NewRedisClient(&config.Conf)
-	if err != nil {
-		log.Fatalf("failed initiate redis: %v", err)
-		os.Exit(1)
-	}
-
-	//initiate a redis library interface
-	redisLibInterface, err := redis.NewRedisLibInterface(redisClient)
-	if err != nil {
-		log.Fatalf("failed initiate redis library: %v", err)
-		os.Exit(1)
+	var redisClient *redisThirdPartyClient.Client
+	var redisLibInterface redis.LibInterface
+	if config.Conf.Redis.EnableRedis {
+		//initiate a redis client
+		redisClient, err = redis.NewRedisClient(&config.Conf)
+		if err != nil {
+			log.Fatalf("failed initiate redis: %v", err)
+			os.Exit(1)
+		}
+		//initiate a redis library interface
+		redisLibInterface, err = redis.NewRedisLibInterface(redisClient)
+		if err != nil {
+			log.Fatalf("failed initiate redis library: %v", err)
+			os.Exit(1)
+		}
 	}
 
 	//setup infrastructure postgres

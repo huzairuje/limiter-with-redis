@@ -75,9 +75,9 @@ func loadPsqlDb(logMode bool, psqlInfo string, maxOpenConn, maxIdleConn, maxLife
 		return nil, err
 	}
 
-	var loggerGorm *gorm.Config
+	var gormConfig *gorm.Config
 	if logMode {
-		loggerGorm = &gorm.Config{
+		gormConfig = &gorm.Config{
 			PrepareStmt: true,
 			NamingStrategy: schema.NamingStrategy{
 				SingularTable: true,
@@ -85,15 +85,16 @@ func loadPsqlDb(logMode bool, psqlInfo string, maxOpenConn, maxIdleConn, maxLife
 			Logger: logger.Default.LogMode(logger.Info),
 		}
 	} else {
-		loggerGorm = &gorm.Config{
+		gormConfig = &gorm.Config{
 			PrepareStmt: true,
 			NamingStrategy: schema.NamingStrategy{
 				SingularTable: true,
 			},
+			Logger: nil,
 		}
 	}
 
 	return gorm.Open(postgres.New(postgres.Config{
 		Conn: conn,
-	}), loggerGorm)
+	}), gormConfig)
 }
